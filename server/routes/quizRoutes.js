@@ -29,6 +29,17 @@ router.post("/submit", protect, async (req, res) => {
       return res.status(404).json({ message: "Question not found" });
     }
 
+    const user = await User.findById(req.user._id);
+
+    // 🚫 Check if already completed
+    if (user.completedQuestions.includes(questionId)) {
+      return res.status(400).json({
+        message: "Question already completed",
+        correct: question.correctAnswer === selectedAnswer,
+        pointsAwarded: 0
+      });
+    }
+
     const isCorrect = question.correctAnswer === selectedAnswer;
 
     let pointsAwarded = 0;
@@ -36,9 +47,10 @@ router.post("/submit", protect, async (req, res) => {
     if (isCorrect) {
       pointsAwarded = question.points;
 
-      await User.findByIdAndUpdate(req.user._id, {
-        $inc: { points: pointsAwarded },
-      });
+      user.points += pointsAwarded;
+      user.completedQuestions.push(questionId);
+
+      await user.save();
     }
 
     res.json({
@@ -50,5 +62,6 @@ router.post("/submit", protect, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 module.exports = router;
