@@ -7,8 +7,9 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const testRoutes = require("./routes/testRoutes");
-
 const quizRoutes = require("./routes/quizRoutes");
+const leaderboardRoutes = require("./routes/leaderboardRoutes");
+
 // app.use("/api/quiz", quizRoutes);
 
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/quiz", quizRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
 
 // Root route
 app.get("/", (req, res) => {
