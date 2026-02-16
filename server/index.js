@@ -8,6 +8,10 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const testRoutes = require("./routes/testRoutes");
 
+const quizRoutes = require("./routes/quizRoutes");
+// app.use("/api/quiz", quizRoutes);
+
+
 // Connect to MongoDB
 connectDB();
 
@@ -20,6 +24,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
+app.use("/api/quiz", quizRoutes);
 
 // Root route
 app.get("/", (req, res) => {
