@@ -9,6 +9,7 @@ const authRoutes = require("./routes/authRoutes");
 const testRoutes = require("./routes/testRoutes");
 const quizRoutes = require("./routes/quizRoutes");
 const leaderboardRoutes = require("./routes/leaderboardRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // app.use("/api/quiz", quizRoutes);
 
@@ -24,9 +25,9 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/test", testRoutes);
 app.use("/api/quiz", quizRoutes);
 app.use("/api/leaderboard", leaderboardRoutes);
+app.use("/api/users", userRoutes);
 
 // Root route
 app.get("/", (req, res) => {
