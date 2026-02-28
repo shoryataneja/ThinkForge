@@ -1,14 +1,39 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import API from "../services/api";
 
 function Quiz() {
-  const [questions, setQuestions] = useState([]);
+  const { type } = useParams();
 
-  // 👇 ADD handleAnswer HERE (inside component)
-  const handleAnswer = async (questionId, selectedAnswer) => {
+  const [question, setQuestion] = useState(null);
+  const [questionId, setQuestionId] = useState(null);
+
+  const token = localStorage.getItem("token");
+
+  const fetchQuestion = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const response = await API.get(
+        `/quiz/generate?type=${type}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
+      setQuestion(response.data.question);
+      setQuestionId(response.data.questionId);
+    } catch (error) {
+      alert("Failed to generate question");
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestion();
+  }, [type]);
+
+  const handleAnswer = async (selectedAnswer) => {
+    try {
       const response = await API.post(
         "/quiz/submit",
         { questionId, selectedAnswer },
@@ -25,54 +50,34 @@ function Quiz() {
           : "Wrong answer"
       );
 
+      fetchQuestion(); // generate new question automatically
+
     } catch (error) {
       alert(error.response?.data?.message || "Submission failed");
     }
   };
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const response = await API.get("/quiz/questions", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setQuestions(response.data);
-      } catch  {
-        alert("Failed to fetch questions");
-      }
-    };
-
-    fetchQuestions();
-  }, []);
-
   return (
     <div>
-      <h2>Quiz</h2>
+      <h2>{type.toUpperCase()} Quiz</h2>
 
-      {questions.length === 0 ? (
-        <p>Loading questions...</p>
+      {!question ? (
+        <p>Loading question...</p>
       ) : (
-        questions.map((q) => (
-          <div key={q._id}>
-            <h4>{q.question}</h4>
+        <div>
+          <h3>{question}</h3>
 
-            {q.options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswer(q._id, option)}
-              >
-                {option}
-              </button>
-            ))}
-
-            <hr />
-          </div>
-        ))
+          <input
+            type="number"
+            placeholder="Your Answer"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleAnswer(e.target.value);
+                e.target.value = "";
+              }
+            }}
+          />
+        </div>
       )}
     </div>
   );
