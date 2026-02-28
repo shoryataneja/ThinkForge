@@ -1,57 +1,58 @@
 const express = require("express");
 const router = express.Router();
-
 const { protect } = require("../middleware/authMiddleware");
-const Question = require("../models/Question");
-const User = require("../models/Temp"); // or "../models/User"
+const generateQuestion = require("../utils/mathGenerator");
+const User = require("../models/Temp"); // or User.js
 
-// GET all questions (protected)
-router.get("/questions", protect, async (req, res) => {
+const activeQuestions = new Map();
+
+// Generate question
+router.get("/generate", protect, (req, res) => {
   try {
-    const questions = await Question.find().select("-correctAnswer");
-    res.json(questions);
+    const { type } = req.query;
+
+    const newQuestion = generateQuestion(type);
+
+    // store correct answer in memory
+    activeQuestions.set(newQuestion.questionId, {
+      answer: newQuestion.correctAnswer,
+      userId: req.user._id,
+    });
+
+    res.json({
+      questionId: newQuestion.questionId,
+      question: newQuestion.question,
+    });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
-// Submit answer (protected)
+// Submit answer
 router.post("/submit", protect, async (req, res) => {
   try {
     const { questionId, selectedAnswer } = req.body;
 
-    if (!questionId || !selectedAnswer) {
-      return res.status(400).json({ message: "Missing fields" });
+    const stored = activeQuestions.get(questionId);
+
+    if (!stored || stored.userId.toString() !== req.user._id.toString()) {
+      return res.status(400).json({ message: "Invalid question" });
     }
 
-    const question = await Question.findById(questionId);
-    if (!question) {
-      return res.status(404).json({ message: "Question not found" });
-    }
-
-    const user = await User.findById(req.user._id);
-
-    // 🚫 Check if already completed
-    if (user.completedQuestions.includes(questionId)) {
-      return res.status(400).json({
-        message: "Question already completed",
-        correct: question.correctAnswer === selectedAnswer,
-        pointsAwarded: 0
-      });
-    }
-
-    const isCorrect = question.correctAnswer === selectedAnswer;
+    const isCorrect = Number(selectedAnswer) === stored.answer;
 
     let pointsAwarded = 0;
 
     if (isCorrect) {
-      pointsAwarded = question.points;
-
-      user.points += pointsAwarded;
-      user.completedQuestions.push(questionId);
-
-      await user.save();
+      pointsAwarded = 10;
+      await User.findByIdAndUpdate(req.user._id, {
+        $inc: { points: pointsAwarded },
+      });
     }
+
+    // remove question after submission
+    activeQuestions.delete(questionId);
 
     res.json({
       correct: isCorrect,
@@ -62,6 +63,5 @@ router.post("/submit", protect, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 module.exports = router;
