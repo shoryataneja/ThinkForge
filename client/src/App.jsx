@@ -4,6 +4,7 @@ import Quiz from "./pages/Quiz";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Leaderboard from "./pages/Leaderboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -11,9 +12,32 @@ function App() {
       <Route path="/" element={<h1>ThinkForge</h1>} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register/>} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/quiz/:type" element={<Quiz />} />
-      <Route path="/leaderboard" element={<Leaderboard />} />
+<Route
+  path="/dashboard"
+  element={
+    <PrivateRoute>
+      <Dashboard />
+    </PrivateRoute>
+  }
+/>
+
+<Route
+  path="/quiz/:type"
+  element={
+    <PrivateRoute>
+      <Quiz />
+    </PrivateRoute>
+  }
+/>
+
+<Route
+  path="/leaderboard"
+  element={
+    <PrivateRoute>
+      <Leaderboard />
+    </PrivateRoute>
+  }
+/>
     </Routes>
   );
 }
