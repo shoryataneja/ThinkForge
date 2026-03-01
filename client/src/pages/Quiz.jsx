@@ -7,6 +7,7 @@ function Quiz() {
 
   const [question, setQuestion] = useState(null);
   const [questionId, setQuestionId] = useState(null);
+  const [user, setUser] = useState(null);
 
   const token = localStorage.getItem("token");
 
@@ -28,8 +29,23 @@ function Quiz() {
     }
   };
 
+  const fetchUser = async () => {
+  try {
+    const response = await API.get("/users/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setUser(response.data);
+  } catch {
+    console.log("Failed to fetch user");
+  }
+};
+
   useEffect(() => {
     fetchQuestion();
+    fetchUser();
   }, [type]);
 
   const handleAnswer = async (selectedAnswer) => {
@@ -50,7 +66,8 @@ function Quiz() {
           : "Wrong answer"
       );
 
-      fetchQuestion(); // generate new question automatically
+      fetchQuestion(); 
+      fetchUser();
 
     } catch (error) {
       alert(error.response?.data?.message || "Submission failed");
@@ -60,6 +77,12 @@ function Quiz() {
   return (
     <div>
       <h2>{type.toUpperCase()} Quiz</h2>
+      {user && (
+  <div>
+    <p>Welcome, {user.name}</p>
+    <p>⭐ Points: {user.points}</p>
+  </div>
+)}
 
       {!question ? (
         <p>Loading question...</p>
