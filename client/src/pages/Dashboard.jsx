@@ -26,6 +26,9 @@ function Dashboard() {
       <button onClick={() => goToQuiz("division")}>
         Division
       </button>
+      <button onClick={() => navigate("/leaderboard")}>
+    View Leaderboard
+    </button>
     </div>
   );
 }
