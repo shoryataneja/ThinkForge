@@ -7,6 +7,11 @@ function Dashboard() {
     navigate(`/quiz/${type}`);
   };
 
+  const logout = () => {
+  localStorage.removeItem("token");
+  navigate("/login");
+};
+
   return (
     <div>
       <h2>Select Quiz Type</h2>
@@ -29,6 +34,9 @@ function Dashboard() {
       <button onClick={() => navigate("/leaderboard")}>
     View Leaderboard
     </button>
+    <button onClick={logout}>
+  Logout
+</button>
     </div>
   );
 }
