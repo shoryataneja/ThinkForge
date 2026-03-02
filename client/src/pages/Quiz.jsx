@@ -8,6 +8,7 @@ function Quiz() {
   const [question, setQuestion] = useState(null);
   const [questionId, setQuestionId] = useState(null);
   const [user, setUser] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(10);
 
   const token = localStorage.getItem("token");
 
@@ -24,7 +25,7 @@ function Quiz() {
 
       setQuestion(response.data.question);
       setQuestionId(response.data.questionId);
-    } catch (error) {
+    } catch  {
       alert("Failed to generate question");
     }
   };
@@ -48,6 +49,24 @@ function Quiz() {
     fetchUser();
   }, [type]);
 
+  useEffect(() => {
+  if (!question) return;
+
+  setTimeLeft(10);
+
+  const interval = setInterval(() => {
+    setTimeLeft((prev) => prev - 1);
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [question]);
+
+useEffect(() => {
+  if (timeLeft === 0) {
+    fetchQuestion();
+  }
+}, [timeLeft]);
+
   const handleAnswer = async (selectedAnswer) => {
     try {
       const response = await API.post(
@@ -68,6 +87,7 @@ function Quiz() {
 
       fetchQuestion(); 
       fetchUser();
+      setTimeLeft(10);
 
     } catch (error) {
       alert(error.response?.data?.message || "Submission failed");
@@ -77,6 +97,7 @@ function Quiz() {
   return (
     <div>
       <h2>{type.toUpperCase()} Quiz</h2>
+      <p>⏱ Time Left: {timeLeft}s</p>
       {user && (
   <div>
     <p>Welcome, {user.name}</p>
