@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Quiz from "./pages/Quiz";
 import Register from "./pages/Register";
@@ -10,7 +11,7 @@ import Profile from "./pages/Profile";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<h1>ThinkForge</h1>} />
+      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register/>} />
 <Route
