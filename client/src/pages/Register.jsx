@@ -13,14 +13,22 @@ function Register() {
     e.preventDefault();
 
     try {
+      // Register the user
       await API.post("/auth/register", {
         name,
         email,
         password,
       });
 
-      alert("Registration successful! Please login.");
-      navigate("/login");
+      // Automatically log in the user after successful registration
+      const loginResponse = await API.post("/auth/login", {
+        email,
+        password,
+      });
+
+      // Store token and redirect to dashboard
+      localStorage.setItem("token", loginResponse.data.token);
+      navigate("/dashboard");
     } catch (error) {
       alert(error.response?.data?.message || "Registration failed");
     }
