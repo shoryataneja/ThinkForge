@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import API from "../services/api";
-import "./Dashboard.css";
+import "../styles/dashboard.css";
 
 function Dashboard() {
   const [user, setUser] = useState(null);

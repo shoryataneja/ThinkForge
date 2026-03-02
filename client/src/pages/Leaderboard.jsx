@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
-import "./Leaderboard.css";
+import "../styles/leaderboard.css";
 
 function Leaderboard() {
   const [users, setUsers] = useState([]);

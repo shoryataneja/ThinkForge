@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import API from "../services/api";
-import "./Profile.css";
+import "../styles/profile.css";
 
 function Profile() {
   const [user, setUser] = useState(null);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
-import "./Quiz.css";
+import "../styles/quiz.css";
 
 function Quiz() {
   const { type } = useParams();
