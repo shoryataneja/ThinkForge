@@ -37,6 +37,11 @@ function Dashboard() {
     <button onClick={logout}>
   Logout
 </button>
+
+
+<button onClick={() => navigate("/profile")}>
+  View Profile
+</button>
     </div>
   );
 }
