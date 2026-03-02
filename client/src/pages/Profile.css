@@ -1,0 +1,480 @@
+.profile-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #87CEEB 0%, #FFE4B5 100%);
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Floating Background Shapes */
+.floating-shapes {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.shape {
+  position: absolute;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.15);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  animation: float-shape 30s infinite ease-in-out;
+}
+
+.shape-1 {
+  top: 12%;
+  left: 6%;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  top: 20%;
+  right: 8%;
+  animation-delay: 5s;
+}
+
+.shape-3 {
+  bottom: 18%;
+  left: 10%;
+  animation-delay: 10s;
+}
+
+.shape-4 {
+  bottom: 25%;
+  right: 6%;
+  animation-delay: 15s;
+}
+
+.shape-5 {
+  top: 55%;
+  left: 3%;
+  animation-delay: 8s;
+}
+
+.shape-6 {
+  top: 65%;
+  right: 4%;
+  animation-delay: 12s;
+}
+
+@keyframes float-shape {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-50px) rotate(10deg);
+  }
+  50% {
+    transform: translateY(-100px) rotate(-10deg);
+  }
+  75% {
+    transform: translateY(-50px) rotate(5deg);
+  }
+}
+
+/* Profile Container */
+.profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px 60px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Section */
+.profile-header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #2D3561;
+  margin: 0 0 15px 0;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 217, 61, 0.3);
+  line-height: 1.1;
+}
+
+.profile-subtitle {
+  font-size: 1.4rem;
+  color: #2D3561;
+  margin: 0;
+  font-weight: 600;
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.4);
+}
+
+/* Loading Card */
+.loading-card {
+  text-align: center;
+  background: white;
+  padding: 80px 40px;
+  border-radius: 35px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.loading-card p {
+  font-size: 1.8rem;
+  color: #2D3561;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+}
+
+/* Hero Card */
+.hero-card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 35px;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+  margin-bottom: 50px;
+  position: relative;
+  animation: slideUp 0.8s ease-out 0.2s both;
+  border: 4px solid transparent;
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.05), white);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: radial-gradient(circle, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+  border-radius: 45px;
+  z-index: -1;
+}
+
+.avatar-section {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 25px;
+}
+
+.avatar-circle {
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  border-radius: 50%;
+  padding: 15px;
+  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: white;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.hero-info {
+  margin-top: 20px;
+}
+
+.hero-name {
+  font-size: 2.5rem;
+  color: #2D3561;
+  margin: 0 0 10px 0;
+  font-weight: 800;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+}
+
+.hero-email {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0 0 25px 0;
+  font-weight: 500;
+}
+
+.points-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #FFD93D, #FFA500);
+  color: #2D3561;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
+  }
+  50% {
+    box-shadow: 0 12px 35px rgba(255, 217, 61, 0.6);
+  }
+}
+
+.points-text {
+  font-size: 1.4rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.points-card {
+  background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), white);
+  border-color: #FFD93D;
+}
+
+.points-card:hover {
+  box-shadow: 0 15px 40px rgba(255, 217, 61, 0.2);
+}
+
+.rank-card {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), white);
+  border-color: #FF6B6B;
+}
+
+.rank-card:hover {
+  box-shadow: 0 15px 40px rgba(255, 107, 107, 0.2);
+}
+
+.activity-card {
+  background: linear-gradient(135deg, rgba(149, 225, 211, 0.1), white);
+  border-color: #95E1D3;
+}
+
+.activity-card:hover {
+  box-shadow: 0 15px 40px rgba(149, 225, 211, 0.2);
+}
+
+.stat-icon {
+  flex-shrink: 0;
+  animation: rotate 4s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+
+.stat-info h3 {
+  font-size: 2rem;
+  color: #2D3561;
+  margin: 0 0 5px 0;
+  font-weight: 800;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+}
+
+.stat-info p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Back Button */
+.back-button {
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  display: block;
+  margin: 0 auto;
+  animation: slideUp 0.8s ease-out 0.6s both;
+}
+
+.back-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(78, 205, 196, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .profile-container {
+    padding: 40px 40px 60px;
+  }
+
+  .profile-title {
+    font-size: 2.8rem;
+  }
+
+  .profile-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .hero-card {
+    padding: 40px 30px;
+  }
+
+  .hero-name {
+    font-size: 2rem;
+  }
+
+  .points-badge {
+    font-size: 1.2rem;
+    padding: 12px 25px;
+  }
+
+  .points-text {
+    font-size: 1.2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .stat-card {
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-container {
+    padding: 30px 20px 40px;
+  }
+
+  .profile-title {
+    font-size: 2.2rem;
+  }
+
+  .profile-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .hero-card {
+    padding: 30px 20px;
+  }
+
+  .hero-name {
+    font-size: 1.8rem;
+  }
+
+  .hero-email {
+    font-size: 1rem;
+  }
+
+  .points-badge {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+  }
+
+  .points-text {
+    font-size: 1.1rem;
+  }
+
+  .stat-card {
+    padding: 20px 15px;
+    gap: 15px;
+  }
+
+  .stat-info h3 {
+    font-size: 1.6rem;
+  }
+
+  .stat-info p {
+    font-size: 0.9rem;
+  }
+
+  .back-button {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+  }
+}
