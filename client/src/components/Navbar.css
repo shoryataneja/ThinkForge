@@ -1,0 +1,118 @@
+.navbar {
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  padding: 15px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  text-decoration: none;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+}
+
+.logout-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .navbar-container {
+    padding: 0 20px;
+  }
+  
+  .navbar-links {
+    gap: 20px;
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+    padding: 8px 15px;
+  }
+  
+  .logout-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-container {
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+  }
+  
+  .navbar-logo {
+    font-size: 1.8rem;
+  }
+  
+  .navbar-links {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
