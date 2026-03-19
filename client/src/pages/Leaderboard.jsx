@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 import API from "../services/api";
 import "../styles/leaderboard.css";
+
+const socket = io(import.meta.env.VITE_API_URL);
 
 function Leaderboard() {
   const [users, setUsers] = useState([]);
@@ -29,6 +32,12 @@ function Leaderboard() {
     };
 
     fetchData();
+
+    socket.on("leaderboardUpdated", (updatedUsers) => {
+      setUsers(updatedUsers);
+    });
+
+    return () => socket.off("leaderboardUpdated");
   }, [token]);
 
   const topThree = users.slice(0, 3);
