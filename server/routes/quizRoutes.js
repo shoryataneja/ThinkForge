@@ -44,12 +44,20 @@ router.post("/submit", protect, async (req, res) => {
 
     let pointsAwarded = 0;
 
-    if (isCorrect) {
-      pointsAwarded = 10;
-      await User.findByIdAndUpdate(req.user._id, {
-        $inc: { points: pointsAwarded },
-      });
-    }
+  if (isCorrect) {
+    pointsAwarded = 10;
+
+    await User.findByIdAndUpdate(req.user._id, {
+      $inc: { points: pointsAwarded },
+    });
+
+    const updatedLeaderboard = await User.find()
+      .sort({ points: -1 })
+      .limit(10);
+
+    const io = req.app.get("io");
+    io.emit("leaderboardUpdated", updatedLeaderboard);
+  }
 
     // remove question after submission
     activeQuestions.delete(questionId);
